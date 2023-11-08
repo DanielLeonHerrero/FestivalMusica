@@ -20,10 +20,3 @@
     }
 }
 
-.prueba {
-    @include m.heading(v.$amarillo, true);
-}
-
-.pruebap {
-    @include m.heading(v.$verde)
-}

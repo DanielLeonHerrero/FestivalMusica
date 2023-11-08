@@ -368,20 +368,3 @@ h3 {
 .navegacion-principal a:hover {
   color: #FEF46D;
 }
-
-.prueba {
-  text-transform: uppercase;
-  font-size: 2.4rem;
-  color: #FEF46D;
-  letter-spacing: 1px;
-  background-color: black;
-  border-radius: 1rem;
-}
-
-.pruebap {
-  text-transform: uppercase;
-  font-size: 2.4rem;
-  color: #4CB8B3;
-  letter-spacing: 1px;
-  background-color: black;
-}
