@@ -1,21 +1,39 @@
-const { src, dest, watch } = require("gulp")
-const sass = require("gulp-sass")(require("sass"))
-const plumber = require('gulp-plumber')
+const { src, dest, watch, parallel } = require('gulp');
 
-function css(cb) {
-    src('src/scss/**/*.scss') // Identificar el archivo SASS
-        .pipe( plumber() )
-        .pipe(sass())    // Compliar SCSS
-        .pipe(dest('build/css')) // Alacenar el CSS
+// CSS
+const sass = require('gulp-sass')(require('sass'));
+const plumber = require('gulp-plumber');
 
-    cb(); // Callback para notificar al Gulp de la finalizacion
+// Imagenes
+const webp = require('gulp-webp');
+
+
+function css( done ) {
+    src('src/scss/**/*.scss') // Identificar el archivo .SCSS a compilar
+        .pipe(sourcemaps.init())
+        .pipe( plumber())
+        .pipe( sass() ) // Compilarlo
+        .pipe( dest('build/css') ) // Almacenarla en el disco duro
+    done();
 }
 
-function dev(cb) {
-    watch('src/scss/**/*.scss',css)
-
-    cb();
+function versionWebp( done ) {
+    const opciones = {
+        quality: 50
+    };
+    src('src/img/**/*.{png,jpg}')
+        .pipe( webp(opciones) )
+        .pipe( dest('build/img') )
+    done();
 }
 
-exports.css = css
-exports.dev = dev
+function dev( done ) {
+    watch('src/scss/**/*.scss', css);
+    done();
+}
+ 
+
+exports.css = css;
+exports.versionWebp = versionWebp;
+exports.dev = dev;
+exports.dev = parallel( versionWebp, dev) ;
